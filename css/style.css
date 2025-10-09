@@ -1,0 +1,127 @@
+body {
+  font-family: "Outfit", sans-serif;
+  background-color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.booking-popup {
+  background: #111;
+  width: 1024px;
+  max-width: 95%;
+  border-radius: 20px;
+  font-family: "Outfit", sans-serif; /* ✅ thêm dòng này để đảm bảo popup cũng dùng Outfit */
+}
+
+/* ✅ Header text style */
+.text-warning {
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 10px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+}
+
+.text-center.mb-4 small {
+  display: block;
+  margin-bottom: 24px; /* ✅ khoảng cách giữa RENT NOW và Book Auto Rental */
+}
+
+h2.fw-bold {
+  font-size: 35px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* ---- Step Indicator ---- */
+.step-indicator {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 20px auto;
+  width: 80%;
+}
+
+.step {
+  text-align: center;
+  width: 100px;
+  position: relative;
+}
+
+.step .circle {
+  width: 35px;
+  height: 35px;
+  background: #222;
+  border: 2px solid #555;
+  border-radius: 50%;
+  margin: 0 auto 8px;
+  transition: all 0.3s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+}
+
+.step.active .circle {
+  border-color: #ffc107;
+  background: #ffc10733;
+  color: #ffc107;
+}
+
+.step p {
+  font-size: 12px;
+  color: #888;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.step.active p {
+  color: #fff;
+  font-weight: 600;
+}
+
+/* ✅ line giữa các step */
+.line {
+  flex: 1;
+  height: 2px;
+  background: #444;
+  margin: 0 -20px;
+  position: relative;
+  top: -13px;
+  z-index: 1;
+}
+
+.step.active ~ .line {
+  background: #ffc107;
+}
+
+/* ---- Animation + Input giữ nguyên ---- */
+.step-content {
+  display: none;
+  animation: fadeIn 0.4s ease;
+}
+
+.step-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+input.form-control {
+  border-radius: 25px;
+  border: 1px solid #444;
+  padding: 10px 15px;
+}
