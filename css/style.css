@@ -1,3 +1,5 @@
+@import "./variables.css";
+
 body {
   font-family: "Outfit", sans-serif;
   background-color: #000;
@@ -5,12 +7,17 @@ body {
   padding: 0;
 }
 
+.g-4-5 {
+  --bs-gutter-x: 1.25rem;
+  --bs-gutter-y: 2.5rem;
+}
+
 .booking-popup {
   background: #111;
   width: 1024px;
   max-width: 95%;
   border-radius: 20px;
-  font-family: "Outfit", sans-serif; /* ✅ thêm dòng này để đảm bảo popup cũng dùng Outfit */
+  font-family: "Outfit", sans-serif;
 }
 
 /* ✅ Header text style */
@@ -24,7 +31,7 @@ body {
 
 .text-center.mb-4 small {
   display: block;
-  margin-bottom: 24px; /* ✅ khoảng cách giữa RENT NOW và Book Auto Rental */
+  margin-bottom: 24px;
 }
 
 h2.fw-bold {
@@ -44,29 +51,11 @@ h2.fw-bold {
 }
 
 .step {
-  text-align: center;
-  width: 100px;
-  position: relative;
-}
-
-.step .circle {
-  width: 35px;
-  height: 35px;
-  background: #222;
-  border: 2px solid #555;
-  border-radius: 50%;
-  margin: 0 auto 8px;
-  transition: all 0.3s;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  color: #999;
-}
-
-.step.active .circle {
-  border-color: #ffc107;
-  background: #ffc10733;
-  color: #ffc107;
+  text-align: center;
+  min-width: 100px;
 }
 
 .step p {
@@ -76,7 +65,7 @@ h2.fw-bold {
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
-  white-space: nowrap;
+  margin-top: 25px;
 }
 
 .step.active p {
@@ -84,19 +73,25 @@ h2.fw-bold {
   font-weight: 600;
 }
 
-/* ✅ line giữa các step */
-.line {
-  flex: 1;
-  height: 2px;
-  background: #444;
-  margin: 0 -20px;
-  position: relative;
-  top: -13px;
-  z-index: 1;
+.step-icon {
+  width: 36px;
+  height: 36px;
+  transition: all 0.3s ease;
 }
 
-.step.active ~ .line {
-  background: #ffc107;
+.step.active .step-icon {
+  opacity: 1;
+  filter: brightness(1) saturate(2);
+}
+
+.line {
+  flex-grow: 1;
+  height: 2px;
+  background-color: #bbbcbe;
+  margin: 0 -20px;
+  top: -19px;
+  position: relative;
+  z-index: 1;
 }
 
 /* ---- Animation + Input giữ nguyên ---- */
@@ -120,8 +115,233 @@ h2.fw-bold {
   }
 }
 
-input.form-control {
-  border-radius: 25px;
-  border: 1px solid #444;
-  padding: 10px 15px;
+/* Custom input chung */
+
+.custom-input {
+  background-color: #111;
+  border: 1px solid var(--input-color); /* viền dùng biến global */
+  border-radius: 24px;
+  color: #fff; /* màu chữ khi điền */
+  padding: 20px;
+  width: 100%; /* hoặc width: 386.5px nếu muốn cố định */
+  height: 50px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.custom-input::placeholder {
+  color: var(--input-color); /* placeholder dùng màu global */
+}
+
+.custom-input:focus {
+  background-color: transparent;
+  color: #fff; /* vẫn giữ trắng khi gõ */
+  border-color: var(--input-color); /* đồng bộ viền */
+  outline: none;
+  box-shadow: none; /* bỏ ánh sáng xanh */
+}
+
+.custom-input::placeholder {
+  color: #aaa;
+}
+
+/* ô input list */
+
+.dropoff-section .dropoff-input {
+  background-color: #111;
+  border: 1px solid var(--input-color);
+  border-radius: 24px;
+  color: #fff;
+  padding: 20px;
+  width: 100%;
+  height: 50px;
+  font-size: 16px;
+  transition: all 0.2s ease;
+}
+
+.dropoff-section .dropoff-input::placeholder {
+  color: var(--input-color);
+}
+
+.dropoff-section .dropoff-input:focus {
+  background-color: transparent;
+  color: #fff;
+  border-color: var(--input-color);
+  outline: none;
+  box-shadow: none;
+}
+
+/* Số thứ tự trong input */
+.dropoff-section .circle-number {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background-color: var(--main-color);
+  color: #000;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+}
+
+/* Cần padding trái lớn hơn nếu có số */
+.dropoff-section .has-number .dropoff-input {
+  padding-left: 55px;
+}
+
+/* Nút Add stop */
+.dropoff-section .add-btn {
+  border: 1px dashed var(--main-color);
+  color: var(--main-color);
+  border-radius: 24px;
+  height: 50px;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.dropoff-section .add-btn:hover {
+  background-color: var(--main-color);
+  color: #000;
+}
+
+/* Nút Remove */
+.dropoff-section .remove-btn {
+  border: 1px solid #888;
+  color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  padding: 0;
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-left: 12px;
+  transition: all 0.2s ease;
+}
+
+.dropoff-section .remove-btn:hover {
+  background-color: var(--main-color);
+  color: #000;
+}
+
+/* ⬇️ Thêm margin giữa các input + hiệu ứng mượt khi thêm/xóa */
+.dropoff-section .dropoff-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: all 0.3s ease;
+}
+
+.dropoff-section .dropoff-item + .dropoff-item {
+  margin-top: 12px; /* ô input dưới cách ô trên */
+  transition: all 0.3s ease;
+}
+
+.dropoff-section .dropoff-item.adding {
+  opacity: 0;
+  transform: translateY(-10px);
+}
+
+.dropoff-section .dropoff-item.adding.show {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.3s ease;
+}
+
+/* Hiệu ứng xóa */
+.dropoff-section .dropoff-item.removing {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.3s ease;
+}
+
+/* ============== Button Footer ============= */
+
+/* === TOGGLE (Round Trip) === */
+.btn-main {
+  background-color: var(--main-color);
+  color: #000;
+  font-weight: 600;
+  font-size: 16px;
+  width: 195.89px;
+  height: 60px;
+  border-radius: 30px;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 56px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.btn-main:hover {
+  filter: brightness(1.05);
+  transform: translateY(-1px);
+}
+
+/* === TOGGLE (cao hơn, màu global main) === */
+.toggle-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.toggle-switch input[type="checkbox"] {
+  appearance: none;
+  width: 45px;
+  height: 24px;
+  background-color: #555;
+  border-radius: 34px;
+  position: relative;
+  outline: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch input[type="checkbox"]::before {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-color: #fff;
+  border-radius: 50%;
+  top: 2px;
+  left: 4px;
+  transition: all 0.3s ease;
+}
+
+.toggle-switch input[type="checkbox"]:checked {
+  background-color: var(--main-color);
+}
+
+.toggle-switch input[type="checkbox"]:checked::before {
+  transform: translateX(18px);
+}
+
+.toggle-switch label {
+  color: #fff;
+  font-size: 16px;
+  user-select: none;
+}
+
+/* === Container cho Toggle và Button === */
+.footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 24px;
 }

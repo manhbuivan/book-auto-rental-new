@@ -1,128 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Book Auto Rental</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css" />
-</head>
-<body class="bg-dark d-flex align-items-center justify-content-center vh-100">
-
-  <!-- Popup Container -->
-  <div class="booking-popup p-5 rounded-4 shadow-lg text-light">
-    <div class="text-center mb-4">
-      <small class="text-warning">RENT NOW</small>
-      <h2 class="fw-bold">Book Auto Rental</h2>
-    </div>
-
-    <!-- Step Progress -->
-    <div class="d-flex justify-content-center align-items-center mb-4 step-indicator">
-      <div class="step active">
-        <div class="circle"></div>
-        <p>Trip Details</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Auto Rental</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body class="bg-dark d-flex align-items-center justify-content-center vh-100">
+    <!-- Popup Container -->
+    <div class="booking-popup p-5 rounded-4 shadow-lg text-light">
+      <div class="text-center mb-4">
+        <small class="text-warning">RENT NOW</small>
+        <h2 class="fw-bold">Book Auto Rental</h2>
       </div>
-      <div class="line"></div>
-      <div class="step">
-        <div class="circle"></div>
-        <p>Choose Vehicle</p>
-      </div>
-      <div class="line"></div>
-      <div class="step">
-        <div class="circle"></div>
-        <p>Payment</p>
-      </div>
-    </div>
 
-    <!-- Step 1 -->
-    <form id="tripForm" class="step-content active">
-      <div class="row g-3">
-        <div class="col-md-6">
-          <label class="form-label">Pick up location <span class="text-danger">*</span></label>
-          <input type="text" class="form-control bg-dark text-light" placeholder="Enter Address, Point of Interest or Airpod Code">
+      <!-- Step Progress -->
+      <div class="step-indicator">
+        <div class="step active">
+          <img
+            src="assests/svg/checking.svg"
+            class="step-icon"
+            alt="Vehicle icon"
+          />
+          <p>Trip Details</p>
         </div>
+        <div class="line"></div>
+        <div class="step">
+          <img
+            src="assests/svg/un-check.svg"
+            class="step-icon"
+            alt="Vehicle icon"
+          />
+          <p>Choose Vehicle</p>
+        </div>
+        <div class="line"></div>
+        <div class="step">
+          <img
+            src="assests/svg/un-check.svg"
+            class="step-icon"
+            alt="Vehicle icon"
+          />
+          <p>Payment</p>
+        </div>
+      </div>
 
-        <div class="col-md-6">
-          <label class="form-label">Drop off location <span class="text-danger">*</span></label>
-          <div id="dropOffList">
-            <div class="input-group mb-2">
-              <span class="input-group-text bg-warning text-dark border-0">1</span>
-              <input type="text" class="form-control bg-dark text-light" placeholder="Enter Address, Point of Interest or Airpod Code">
+      <!-- Step 1 -->
+      <form id="tripForm" class="step-content active">
+        <div class="row g-4-5">
+          <!-- Pick up -->
+          <div class="col-md-5">
+            <label class="form-label text-light">
+              Pick up location <span class="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              class="form-control custom-input"
+              placeholder="Enter Address, Point of Interest or Airpod Code"
+            />
+          </div>
+
+          <!-- Drop off -->
+          <div class="col-md-7 dropoff-section">
+            <label class="form-label text-light">
+              Drop off location <span class="text-danger">*</span>
+            </label>
+
+            <div id="dropoffList">
+              <div class="dropoff-item d-flex align-items-center">
+                <div class="input-wrapper position-relative flex-grow-1">
+                  <input
+                    type="text"
+                    class="form-control dropoff-input"
+                    placeholder="Enter Address, Point of Interest or Airpod Code"
+                  />
+                </div>
+                <button type="button" id="addStop" class="btn add-btn ms-3">
+                  + Add stop
+                </button>
+              </div>
             </div>
           </div>
-          <button type="button" id="addStop" class="btn btn-outline-warning btn-sm rounded-pill">+ Add stop</button>
-        </div>
 
-        <div class="col-md-4">
-          <label class="form-label">Date of Service <span class="text-danger">*</span></label>
-          <input type="date" class="form-control bg-dark text-light">
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Time of Service <span class="text-danger">*</span></label>
-          <input type="time" class="form-control bg-dark text-light">
-        </div>
-        <div class="col-md-4">
-          <label class="form-label">Airline <span class="text-danger">*</span></label>
-          <input type="text" class="form-control bg-dark text-light" placeholder="Your airline">
-        </div>
+          <!-- Date, time, airline -->
+          <div class="col-md-4">
+            <label class="form-label text-light">
+              Date of Service <span class="text-danger">*</span>
+            </label>
+            <input type="date" class="form-control custom-input" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-light">
+              Time of Service <span class="text-danger">*</span>
+            </label>
+            <input type="time" class="form-control custom-input" />
+          </div>
+          <div class="col-md-4">
+            <label class="form-label text-light">
+              Airline <span class="text-danger">*</span>
+            </label>
+            <input
+              type="text"
+              class="form-control custom-input"
+              placeholder="Your phone number"
+            />
+          </div>
 
-        <div class="col-md-3">
-          <label class="form-label">Passengers <span class="text-danger">*</span></label>
-          <input type="number" class="form-control bg-dark text-light" min="1">
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Child seat</label>
-          <input type="number" class="form-control bg-dark text-light" min="0">
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Car seat (+15$)</label>
-          <input type="number" class="form-control bg-dark text-light" min="0">
-        </div>
-        <div class="col-md-3">
-          <label class="form-label">Booster seat (+10$)</label>
-          <input type="number" class="form-control bg-dark text-light" min="0">
-        </div>
+          <!-- Seats -->
+          <div class="col-md-3">
+            <label class="form-label text-light">
+              Passengers <span class="text-danger">*</span>
+            </label>
+            <input
+              type="number"
+              class="form-control custom-input"
+              min="1"
+              placeholder="Number"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-light">
+              Child seat: <span class="text-danger">*</span>
+            </label>
+            <input
+              type="number"
+              class="form-control custom-input"
+              min="0"
+              placeholder="Number"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-light">Car seat (+15$)</label>
+            <input
+              type="number"
+              class="form-control custom-input"
+              min="0"
+              placeholder="Number"
+            />
+          </div>
+          <div class="col-md-3">
+            <label class="form-label text-light">Booster seat (+10$)</label>
+            <input
+              type="number"
+              class="form-control custom-input"
+              min="0"
+              placeholder="Number"
+            />
+          </div>
 
-        <div class="col-md-12 d-flex align-items-center mt-3">
-          <label class="me-3">Round Trip</label>
-          <div class="form-check form-switch">
-            <input class="form-check-input bg-warning" type="checkbox" id="roundTrip">
+          <div class="footer-actions">
+            <div class="toggle-switch">
+              <input type="checkbox" id="roundTrip" />
+              <label for="roundTrip">Round Trip</label>
+            </div>
+
+            <button type="button" class="btn-main" id="nextBtn">Next</button>
           </div>
         </div>
+      </form>
 
-        <div class="d-flex justify-content-end mt-4">
-          <button type="button" id="nextBtn" class="btn btn-warning px-5 rounded-pill fw-bold">Next</button>
+      <!-- Step 2 -->
+      <div class="step-content">
+        <div class="text-center">
+          <h4>Choose your vehicle</h4>
+          <p>Vehicle selection coming soon...</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button class="btn btn-outline-light rounded-pill px-4" id="backBtn1">
+            Back
+          </button>
+          <button class="btn btn-warning rounded-pill px-4" id="nextToPayment">
+            Next
+          </button>
         </div>
       </div>
-    </form>
 
-    <!-- Step 2 -->
-    <div class="step-content">
-      <div class="text-center">
-        <h4>Choose your vehicle</h4>
-        <p>Vehicle selection coming soon...</p>
-      </div>
-      <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-outline-light rounded-pill px-4" id="backBtn1">Back</button>
-        <button class="btn btn-warning rounded-pill px-4" id="nextToPayment">Next</button>
+      <!-- Step 3 -->
+      <div class="step-content">
+        <div class="text-center">
+          <h4>Payment</h4>
+          <p>Payment form coming soon...</p>
+        </div>
+        <div class="d-flex justify-content-between mt-4">
+          <button class="btn btn-outline-light rounded-pill px-4" id="backBtn2">
+            Back
+          </button>
+          <button class="btn btn-success rounded-pill px-4">Submit</button>
+        </div>
       </div>
     </div>
 
-    <!-- Step 3 -->
-    <div class="step-content">
-      <div class="text-center">
-        <h4>Payment</h4>
-        <p>Payment form coming soon...</p>
-      </div>
-      <div class="d-flex justify-content-between mt-4">
-        <button class="btn btn-outline-light rounded-pill px-4" id="backBtn2">Back</button>
-        <button class="btn btn-success rounded-pill px-4">Submit</button>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="js/script.js"></script>
-</body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/script.js"></script>
+  </body>
 </html>
