@@ -4,7 +4,12 @@ body {
   font-family: "Outfit", sans-serif;
   background-color: #000;
   margin: 0;
-  padding: 0;
+  padding: 40px 0; /* tạo khoảng tránh dính mép */
+  overflow-y: auto; /* bật scroll trình duyệt */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start; /* không khóa căn giữa dọc nữa */
+  min-height: 100vh; /* page tự mở rộng khi dài */
 }
 
 .g-4-5 {
@@ -17,7 +22,42 @@ body {
   width: 1024px;
   max-width: 95%;
   border-radius: 20px;
+  max-height: 90vh; /* popup tối đa 90% màn hình */
+  overflow-y: auto; /* nếu popup dài hơn thì tự scroll trong popup */
+  padding-right: 6px; /* tránh bị mất scroll bar đẹp UI hơn */
 }
+
+.booking-popup::-webkit-scrollbar {
+  display: none;
+}
+
+.autocomplete-dropdown-container {
+  position: relative;
+}
+
+.autocomplete-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  width: 100%; /* Đảm bảo dropdown có độ rộng bằng với input */
+  background: #222;
+  /* border: 1px solid #444; */
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+}
+
+.autocomplete-dropdown .item {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: #fff;
+}
+
+.autocomplete-dropdown .item:hover {
+  background: #444;
+}
+
 
 /* ✅ Header text style */
 .text-warning {
@@ -805,4 +845,104 @@ select.custom-input {
 
 select.custom-input option {
   background-color: #000;
+}
+
+/* ============================= */
+/* 📱 Responsive Design (Mobile) */
+/* ============================= */
+
+@media (max-width: 768px) {
+  /* Toàn bộ container và padding */
+  .form-container {
+    padding: 1rem !important;
+    border-radius: 0;
+  }
+
+  /* Bước chỉ thị (stepper) hiển thị dọc */
+  .stepper {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .step {
+    width: 100%;
+    max-width: 320px;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+  }
+
+  .step.active {
+    background-color: var(--main-color);
+    color: #fff;
+    border-radius: 8px;
+  }
+
+  /* Label và input full width */
+  .form-label {
+    font-size: 14px;
+    margin-bottom: 4px;
+  }
+
+  .form-control,
+  select,
+  textarea {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 12px;
+  }
+
+  /* Hàng input chia đôi trên desktop -> full trên mobile */
+  .row.g-3 > [class*="col-"],
+  .col-md-6,
+  .col-md-4,
+  .col-md-3 {
+    flex: 0 0 100% !important;
+    max-width: 100% !important;
+  }
+
+  /* Nút bấm full width và dễ chạm */
+  .btn,
+  .next-btn,
+  .prev-btn,
+  .submit-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+
+  /* Checkbox và radio dễ đọc hơn */
+  .form-check-label {
+    font-size: 15px;
+  }
+
+  /* Các phần hiển thị nhiều nội dung */
+  .step-content {
+    padding: 1rem;
+  }
+
+  /* Input nhóm hoặc dynamic stop */
+  .add-stop-btn {
+    width: 100%;
+    font-size: 16px;
+  }
+
+  /* Khoảng cách giữa các bước */
+  .step-content:not(.active) {
+    display: none;
+  }
+
+  /* Điều chỉnh phần header hoặc banner nếu có */
+  header,
+  .header-banner {
+    text-align: center;
+    padding: 1rem;
+  }
+
+  /* Giảm độ rộng container tổng thể */
+  .container {
+    max-width: 100%;
+  }
 }

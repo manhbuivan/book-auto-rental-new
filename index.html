@@ -55,24 +55,27 @@
       <!-- Step 1 -->
       <form id="tripForm" class="step-content active">
         <div class="row g-4-5">
-          <!-- Pick up -->
+          <!-- Pick up location -->
           <div class="col-md-5">
             <label class="form-label text-light">
               Pick up location <span class="text-danger">*</span>
             </label>
-            <input
-              type="text"
-              class="form-control custom-input"
-              placeholder="Enter Address, Point of Interest or Airpod Code"
-            />
+            <div class="autocomplete-dropdown-container">
+              <input
+                type="text"
+                id="pickupInput"
+                class="form-control custom-input"
+                placeholder="Enter Address, Point of Interest or Airpod Code"
+              />
+              <div id="pickupDropdown" class="autocomplete-dropdown"></div>
+            </div>
           </div>
 
-          <!-- Drop off -->
+          <!-- Drop off location -->
           <div class="col-md-7 dropoff-section">
             <label class="form-label text-light">
               Drop off location <span class="text-danger">*</span>
             </label>
-
             <div id="dropoffList">
               <div class="dropoff-item d-flex align-items-center">
                 <div class="input-wrapper position-relative flex-grow-1">
@@ -80,7 +83,12 @@
                     type="text"
                     class="form-control dropoff-input"
                     placeholder="Enter Address, Point of Interest or Airpod Code"
+                    id="dropoffInput0"
                   />
+                  <div
+                    id="dropoffDropdown0"
+                    class="autocomplete-dropdown"
+                  ></div>
                 </div>
                 <button type="button" id="addStop" class="btn add-btn ms-3">
                   + Add stop
@@ -94,13 +102,21 @@
             <label class="form-label text-light">
               Date of Service <span class="text-danger">*</span>
             </label>
-            <input type="date" class="form-control custom-input" />
+            <input
+              type="date"
+              id="fromDateInput"
+              class="form-control custom-input"
+            />
           </div>
           <div class="col-md-4">
             <label class="form-label text-light">
               Time of Service <span class="text-danger">*</span>
             </label>
-            <input type="time" class="form-control custom-input" />
+            <input
+              type="time"
+              id="fromTimeInput"
+              class="form-control custom-input"
+            />
           </div>
           <div class="col-md-4">
             <label class="form-label text-light">
@@ -110,11 +126,12 @@
               type="text"
               class="form-control custom-input"
               placeholder="Your phone number"
+              id="airlineInput"
             />
           </div>
 
           <!-- Seats -->
-          <div class="col-md-3">
+          <div class="col-md-4">
             <label class="form-label text-light">
               Passengers <span class="text-danger">*</span>
             </label>
@@ -125,7 +142,7 @@
               placeholder="Number"
             />
           </div>
-          <div class="col-md-3">
+          <div class="col-md-4">
             <label class="form-label text-light">
               Child seat <span class="text-danger">*</span>
             </label>
@@ -136,7 +153,7 @@
               placeholder="Number"
             />
           </div>
-          <div class="col-md-3">
+          <!-- <div class="col-md-3">
             <label class="form-label text-light">Car seat (+15$)</label>
             <input
               type="number"
@@ -144,8 +161,8 @@
               min="0"
               placeholder="Number"
             />
-          </div>
-          <div class="col-md-3">
+          </div> -->
+          <div class="col-md-4">
             <label class="form-label text-light">Booster seat (+10$)</label>
             <input
               type="number"
@@ -208,7 +225,6 @@
 
           <!-- Card car -->
           <div class="car-card-container" id="carList"></div>
-
 
           <div class="btn-group">
             <button class="btn-main" id="backBtn1">
