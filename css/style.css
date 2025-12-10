@@ -24,7 +24,7 @@ body {
   border-radius: 20px;
   max-height: 90vh; /* popup tối đa 90% màn hình */
   overflow-y: auto; /* nếu popup dài hơn thì tự scroll trong popup */
-  padding-right: 6px; /* tránh bị mất scroll bar đẹp UI hơn */
+  padding: 3rem; /* tránh bị mất scroll bar đẹp UI hơn */
 }
 
 .booking-popup::-webkit-scrollbar {
@@ -645,6 +645,7 @@ h2.fw-bold {
 
 .text-pickup {
   color: #fff !important;
+  white-space: nowrap;
 }
 
 .order-user p {
@@ -673,7 +674,6 @@ h2.fw-bold {
 /* --- Tổng thể --- */
 .order-summary {
   display: flex;
-  flex-wrap: wrap;
   gap: 15px;
   margin-top: 15px;
   justify-content: flex-start;
@@ -694,7 +694,7 @@ h2.fw-bold {
 }
 
 .car-card img {
-  width: 320px;
+  width: 100%;
   border-radius: 10px;
   object-fit: contain;
   flex-shrink: 0;
@@ -866,7 +866,6 @@ select.custom-input option {
   }
 
   .step {
-    width: 100%;
     max-width: 320px;
     text-align: center;
     padding: 10px 0;
@@ -874,7 +873,6 @@ select.custom-input option {
   }
 
   .step.active {
-    background-color: var(--main-color);
     color: #fff;
     border-radius: 8px;
   }
@@ -944,5 +942,141 @@ select.custom-input option {
   /* Giảm độ rộng container tổng thể */
   .container {
     max-width: 100%;
+  }
+
+  /* form */
+  .booking-popup {
+    padding: 1rem;
+  }
+
+  .step-indicator {
+    margin: 10px auto;
+    width: 100%;
+  }
+
+  .dropoff-section .dropoff-item {
+    flex-direction: column;
+  }
+
+  .dropoff-section .dropoff-item.show{
+    flex-direction: row;
+  }
+
+  .dropoff-section,
+  .step-content .col-md-12,
+  .step-content .col-md-6,
+  .step-content .col-md-3,
+  .step-content .col-md-4,
+  .step-content .col-md-5 {
+    margin-top: 25px;
+    padding: 0 !important;
+  }
+
+  .step-content .form-label {
+    margin-bottom: 10px;
+  }
+
+  .dropoff-section .input-wrapper {
+    width: 100%;
+  }
+
+  .dropoff-section .remove-btn {
+    margin: 0;
+  }
+
+  .btn-group .btn-main,
+  .footer-actions .btn-main {
+    width: 139px;
+    height: 42px;
+  }
+
+  .btn-group {
+    justify-content: space-between;
+  }
+
+  .form-rents .btn-group{
+    justify-content: center;
+  }
+
+  .order-info {
+    padding: 15px 20px;
+  }
+
+  .car-card {
+    flex-direction: column;
+  }
+
+  .img-car {
+    width: 100%;
+  }
+
+  .car-card img {
+    width: 100%;
+  }
+
+  .car-info {
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .car-details img {
+    width: 16px !important;
+  }
+
+  .price-summary {
+    padding: 15px 20px;
+    min-width: 100%;
+  }
+
+  .step-2,
+  .step-3 {
+    padding: 0;
+  }
+
+  .footer-actions {
+    flex-direction: column;
+  }
+
+  .user-left {
+    flex: 1;
+    max-width: 100%;
+  }
+
+  .car-desc {
+    margin-bottom: 10px;
+  }
+
+  .coupon-btn {
+    right: 14px;
+  }
+
+  .form-rents .coupon-btn {
+    right: 47px;
+  }
+
+  .dropoff-section .add-btn {
+    margin-left: 0 !important;
+  }
+
+  .car-card-item {
+    flex-direction: column;
+    padding: 10px;
+  }
+
+  .car-card-item .car-image {
+    width: 100%;
+  }
+
+  .order-summary {
+    flex-direction: column;
+  }
+
+  .step p {
+    letter-spacing: .5px;
+  }
+
+  .order-user {
+    gap: 8px;
+    flex-direction: column;
   }
 }

@@ -16,7 +16,7 @@
   </head>
   <body class="bg-dark d-flex align-items-center justify-content-center vh-100">
     <!-- Popup Container -->
-    <div class="booking-popup p-5 rounded-4 shadow-lg text-light">
+    <div class="booking-popup form-rents rounded-4 shadow-lg text-light">
       <div class="text-center mb-4">
         <small class="text-warning">RENT NOW</small>
         <h2 class="fw-bold">Book Auto Rental</h2>
@@ -64,6 +64,7 @@
               type="text"
               class="form-control custom-input"
               placeholder="David"
+              id="firstNameInput"
             />
           </div>
           <div class="col-md-3">
@@ -74,6 +75,7 @@
               type="text"
               class="form-control custom-input"
               placeholder="David"
+              id="lastNameInput"
             />
           </div>
           <div class="col-md-3">
@@ -82,6 +84,7 @@
               type="text"
               class="form-control custom-input"
               placeholder="manhdeptrai@gmail.com"
+              id="emailInput"
             />
           </div>
           <div class="col-md-3">
@@ -90,6 +93,7 @@
               type="text"
               class="form-control custom-input"
               placeholder="Phone"
+              id="phoneInput"
             />
           </div>
 
@@ -99,7 +103,8 @@
             <input
               type="text"
               class="form-control custom-input"
-              placeholder="Phone"
+              placeholder="Address"
+              id="addressInput"
             />
           </div>
 
@@ -109,9 +114,9 @@
               Pick Up Date <span class="text-danger">*</span>
             </label>
             <div class="flex-date">
-              <input type="date" class="form-control custom-input" />
+              <input type="date" class="form-control custom-input" id="fromDateInput"/>
               <span class="text-light">-</span>
-              <input type="time" class="form-control custom-input" />
+              <input type="time" class="form-control custom-input" id="fromTimeInput"/>
             </div>
           </div>
           <div class="col-md-6">
@@ -119,9 +124,9 @@
               Drop Up Date <span class="text-danger">*</span>
             </label>
             <div class="flex-date">
-              <input type="date" class="form-control custom-input" />
+              <input type="date" class="form-control custom-input" id="toDateInput"/>
               <span class="text-light">-</span>
-              <input type="time" class="form-control custom-input" />
+              <input type="time" class="form-control custom-input" id="toTimeInput"/>
             </div>
           </div>
 
@@ -130,7 +135,7 @@
             <label class="form-label text-light">
               Pick Up Location <span class="text-danger">*</span>
             </label>
-            <select class="form-control custom-input" style="color: #fff">
+            <select class="form-control custom-input" style="color: #fff" id="pickupLocationInput">
               <option value="" disabled selected>Select Location</option>
               <option value="airport">Airport</option>
               <option value="city-center">City Center</option>
@@ -142,7 +147,7 @@
             <label class="form-label text-light">
               Pick Up Event <span class="text-danger">*</span>
             </label>
-            <select class="form-control custom-input" style="color: #fff">
+            <select class="form-control custom-input" style="color: #fff" id="pickupEventInput">
               <option value="" disabled selected>Select Event</option>
               <option value="conference">Conference</option>
               <option value="wedding">Wedding</option>
@@ -157,83 +162,16 @@
       </form>
 
       <!-- Step 2 -->
-      <div class="step-content">
+      <div class="step-content step-2">
         <div class="row g-4-5">
           <!-- Card car -->
-          <div class="car-card-container">
-            <label class="car-card-item">
-              <input
-                type="radio"
-                name="selectedCar"
-                class="car-checkbox"
-                checked
-              />
-              <img
-                src="assests/png/urus_1.png"
-                alt="Lamborghini Urus"
-                class="car-image"
-              />
-              <div class="car-info">
-                <h3 class="car-name">Lamborghini Urus</h3>
-                <div class="car-details">
-                  <span>
-                    <img src="assests/svg/seat.svg" class="icon-book-car" />
-                    4 Seats
-                  </span>
-                  <span>
-                    <img src="assests/svg/auto.svg" class="icon-book-car" />
-                    Auto
-                  </span>
-                  <span>
-                    <img src="assests/svg/bag.svg" class="icon-book-car" />
-                    2 Bags
-                  </span>
-                </div>
-                <p class="car-desc">Carries up to 4 passengers.</p>
-              </div>
-              <div class="car-price">
-                <span>$750</span>
-                <div class="radio"></div>
-              </div>
-            </label>
-
-            <label class="car-card-item">
-              <input type="radio" name="selectedCar" class="car-checkbox" />
-              <img
-                src="assests/png/urus_2.png"
-                alt="Lamborghini Urus"
-                class="car-image"
-              />
-              <div class="car-info">
-                <h3 class="car-name">Lamborghini Urus</h3>
-                <div class="car-details">
-                  <span>
-                    <img src="assests/svg/seat.svg" class="icon-book-car" />
-                    4 Seats
-                  </span>
-                  <span>
-                    <img src="assests/svg/auto.svg" class="icon-book-car" />
-                    Auto
-                  </span>
-                  <span>
-                    <img src="assests/svg/bag.svg" class="icon-book-car" />
-                    2 Bags
-                  </span>
-                </div>
-                <p class="car-desc">Carries up to 4 passengers.</p>
-              </div>
-              <div class="car-price">
-                <span>$850</span>
-                <div class="radio"></div>
-              </div>
-            </label>
-          </div>
+          <div class="car-card-container" id="carList"></div>
 
           <!-- Optional Service Card -->
 
           <div class="option-card-container">
             <label class="option-card">
-              <input type="checkbox" class="option-checkbox" />
+              <input type="checkbox" id="selfDriveInsurance" class="option-checkbox" />
               <div class="option-info">
                 <h3 class="option-title">Self-drive Insurance</h3>
                 <p class="option-desc">
@@ -267,30 +205,30 @@
         <div class="order-info">
           <div class="order-user">
             <div class="user-left">
-              <p style="font-size: 15px; color: #fff">
+              <p id="fullName" style="font-size: 15px; color: #fff">
                 <strong>Oscar Nguyen</strong>
               </p>
-              <p><img src="assests/svg/phone.svg" /> 0763661616</p>
-              <p><img src="assests/svg/mail.svg" /> david4792@gmail.com</p>
-              <p>
+              <p id="phone"><img src="assests/svg/phone.svg" /> 0763661616</p>
+              <p id="email"><img src="assests/svg/mail.svg" /> david4792@gmail.com</p>
+              <p id="address">
                 <img src="assests/svg/address.svg" /> 123 William Street, New
                 York City, New York State, United States
               </p>
             </div>
             <div class="user-right">
-              <p>
+              <p id="pickupDate">
                 <strong class="text-pickup">Pick Up Date:</strong> June 28, 2025
                 – 3:30 PM
               </p>
-              <p>
+              <p id="dropupDate">
                 <strong class="text-pickup">Drop Up Date:</strong> June 29, 2025
                 – 3:30 PM
               </p>
-              <p>
+              <p id="pickupLocation">
                 <strong class="text-pickup">Pick Up Location:</strong> Anaheim,
                 CA
               </p>
-              <p><strong class="text-pickup">Pick Up Event:</strong> Wedding</p>
+              <p id="pickupEvent"><strong class="text-pickup">Pick Up Event:</strong> Wedding</p>
             </div>
           </div>
         </div>
@@ -304,9 +242,9 @@
             <div class="car-info">
               <h3 class="car-name">Lamborghini Urus</h3>
               <div class="car-details">
-                <span><img src="assests/svg/seat.svg" />4 Seats</span>
-                <span><img src="assests/svg/auto.svg" />Auto</span>
-                <span><img src="assests/svg/bag.svg" />2 Bags</span>
+                <span id="seats-info"><img src="assests/svg/seat.svg" />4 Seats</span>
+                <span id="auto-info"><img src="assests/svg/auto.svg" />Auto</span>
+                <span id="bags-info"><img src="assests/svg/bag.svg" />2 Bags</span>
               </div>
               <p class="car-desc">Carries up to 4 passengers.</p>
             </div>
@@ -315,25 +253,25 @@
           <!-- Card Giá Tiền -->
           <div class="price-summary">
             <div class="price-row">
-              <span>Subtotal</span><span>$750.00</span>
+              <span>Subtotal</span><span id="price-subtotal">$0</span>
             </div>
             <div class="price-row">
-              <span>Booster seat</span><span>$15.00</span>
+              <span>Booster seat</span><span id="price-booster">$15</span>
             </div>
             <div class="price-row">
-              <span>Self-drive Insurance</span><span>$20.00</span>
+              <span>Self-drive Insurance</span><span id="price-insurance">$0</span>
             </div>
             <div class="price-row discount">
-              <span>Discount</span><span>-$10.00</span>
+              <span>Discount</span><span id="price-discount">-$0</span>
             </div>
             <hr />
             <div class="price-row total">
-              <span>Total</span><span>$775.00</span>
+              <span>Total</span><span id="price-total"></span>
             </div>
 
             <div class="coupon-row">
-              <input type="text" placeholder="Coupon" class="coupon-input" />
-              <button class="coupon-btn">Add</button>
+              <input type="text" placeholder="Coupon" class="coupon-input" id="couponInput" />
+              <button id="applyCouponBtn" class="coupon-btn">Add</button>
             </div>
           </div>
         </div>
@@ -349,7 +287,7 @@
               <img src="assests/svg/arrow.svg" style="margin-right: 10px" />
               Back
             </button>
-            <button type="button" class="btn-main" id="nextToPayment">
+            <button type="button" class="btn-main" id="payment">
               Pay
             </button>
           </div>
