@@ -141,10 +141,13 @@ document.addEventListener("DOMContentLoaded", () => {
       totalDistance += returnDistance;
     }
 
+    // Convert meters to miles (1 mile = 1609.34 meters)
+    const metersToMiles = (meters) => meters / 1609.34;
+
     return {
-      distance: totalDistance,
-      pickupDistance: pickupDistance,
-      returnDistance:returnDistance,
+      distance: metersToMiles(totalDistance),
+      pickupDistance: metersToMiles(pickupDistance),
+      returnDistance: metersToMiles(returnDistance),
     };
   }
 
@@ -418,7 +421,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "fromTimeInput",
       "airlineInput",
       "passengersInput",
-      "childSeatInput",
     ];
 
     let valid = true;
@@ -581,7 +583,7 @@ document.addEventListener("DOMContentLoaded", () => {
     </div>
   `;
 
-  const airlineCol = document.querySelector(".col-md-3:has(#boosterSeatInput)");
+  const airlineCol = document.querySelector(".col-md-4:has(#boosterSeatInput)");
   airlineCol.insertAdjacentHTML("afterend", returnDateTimeHTML);
 
   roundTripCheckbox.addEventListener("change", (e) => {
