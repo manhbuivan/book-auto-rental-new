@@ -33,6 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
     totalDistance: 0,
     dropoffPoints: [],
     totalPrice: 0,
+    // airline,
   };
 
   function formattedPrice(price) {
@@ -258,6 +259,7 @@ document.addEventListener("DOMContentLoaded", () => {
         returnDistance: bookingData.returnDistance,
         totalDistance: bookingData.totalDistance,
         dropoffPoints: bookingData.dropoffPoints,
+        // airline: bookingData.airline,
       }
       const res = await fetch(
         "https://machshuttle.hayho.org/api/bookings/create",
@@ -441,6 +443,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "fromDateInput",
       "fromTimeInput",
       "passengersInput",
+      // "airlineInput"
     ];
 
     let valid = true;
@@ -491,6 +494,8 @@ document.addEventListener("DOMContentLoaded", () => {
         parseInt(document.getElementById("childSeatInput").value) || 0;
       bookingData.boosterSeats =
         parseInt(document.getElementById("boosterSeatInput").value) || 0;
+      // bookingData.airline =
+      //   document.getElementById("airlineInput").value.trim() || "";
       bookingData.isRoundTrip = document.getElementById("roundTrip").checked;
 
       const fromDate = document.getElementById("fromDateInput").value;
