@@ -198,6 +198,10 @@ h2.fw-bold {
   transition: all 0.2s ease;
 }
 
+.form-control.is-invalid {
+  border-color: var(--bs-form-invalid-border-color) !important;
+}
+
 .dropoff-section .dropoff-input::placeholder {
   color: var(--input-color);
 }

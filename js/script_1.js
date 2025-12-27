@@ -400,9 +400,11 @@ document.addEventListener("DOMContentLoaded", () => {
       // Update subtotal
       const subtotalElem = step3Content.querySelector("#subtotalPrice");
       if (subtotalElem) subtotalElem.textContent = carPrice;
+      const boosterSeatPrice = step3Content.querySelector("#boosterSeatPrice");
+      const boosterSeat = bookingData.boosterSeats * 10;
+      if (boosterSeatPrice) boosterSeatPrice.textContent = formattedPrice(boosterSeat || 0);
 
       const subtotal = parseFloat(carPrice.replace(/[$,]/g, ""));
-      const boosterSeat = 15;
       const total = subtotal + boosterSeat;
       bookingData.totalPrice = total;
 
@@ -462,14 +464,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     }
 
-    if (!selectedLocations.pickup || selectedLocations.dropoffs.length === 0) {
-      alert("Please select an address from the list of suggestions!");
-      return false;
-    }
-
     if (valid) {
       // Lưu dữ liệu step 1
-      bookingData.pickupLocation = selectedLocations.pickup.address;
       bookingData.numberOfPassengers =
         parseInt(document.getElementById("passengersInput").value) || 0;
       bookingData.childSeats =
@@ -602,8 +598,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ============== Next/Back Buttons ================
   document.getElementById("nextBtn").addEventListener("click", async () => {
-    console.log('123123');
     if (!validateStep1()) return;
+
+    if (!selectedLocations.pickup || selectedLocations.dropoffs.length === 0) {
+      alert("Please select an address from the list of suggestions!");
+      return false;
+    } else {
+      bookingData.pickupLocation = selectedLocations.pickup.address;
+    }
 
     // Show loading
     const btn = document.getElementById("nextBtn");
@@ -779,8 +781,8 @@ document.addEventListener("DOMContentLoaded", () => {
     } catch (err) {
       console.error("Search error:", err);
       return [];
-    }
-  }
+        }
+}
 
   function attachAutocomplete(input, dropdown, dropoffIndex = null) {
     const handleSearch = debounce(async () => {
