@@ -419,7 +419,6 @@ document.addEventListener("DOMContentLoaded", () => {
       "dropoffInput0",
       "fromDateInput",
       "fromTimeInput",
-      "airlineInput",
       "passengersInput",
     ];
 
@@ -603,6 +602,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // ============== Next/Back Buttons ================
   document.getElementById("nextBtn").addEventListener("click", async () => {
+    console.log('123123');
     if (!validateStep1()) return;
 
     // Show loading
