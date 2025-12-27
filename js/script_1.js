@@ -1,13 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   const steps = document.querySelectorAll(".step");
   const contents = document.querySelectorAll(".step-content");
-  const coupons = {
-    "KMBK13": 50,
-    "WELCOME10": 10,
-    "VIP100": 100,
-    "NEWYEAR": 75,
-    "FLASH20": 20
-  };
   let currentStep = 0;
   let selectedLocations = {
     startPoint: {
@@ -57,11 +50,31 @@ document.addEventListener("DOMContentLoaded", () => {
     const couponCode = couponInput.value.trim().toUpperCase();
     const discountElem = document.querySelector("#discountAmount");
     const totalElem = document.querySelector("#totalPrice");
-    if (coupons[couponCode]) {
+
+    // Lấy thông tin xe đã chọn
+    const selectedCarRadio = document.querySelector('input[name="selectedCar"]:checked');
+
+    const carCard = selectedCarRadio.closest(".car-card-item");
+    const carData = JSON.parse(carCard.dataset.carData || '{}');
+
+    // Kiểm tra mã khuyến mãi của xe
+    const validPromotionCode = carData.promotionCode;
+    const discountAmount = carData.discountAmount || 0;
+
+    // So sánh mã người dùng nhập với mã của xe
+    if (couponCode === validPromotionCode) {
       bookingData.promotionCode = couponCode;
-      if (discountElem) discountElem.textContent = `-${formattedPrice(coupons[couponCode])}`;
-      if (totalElem && (bookingData.totalPrice >= coupons[couponCode])) totalElem.textContent = `${formattedPrice(bookingData.totalPrice - coupons[couponCode])}`;
+      if (discountElem) {
+        discountElem.textContent = `-${formattedPrice(discountAmount)}`;
+      };
+      
+      if (totalElem && (bookingData.totalPrice >= discountAmount)) {
+        totalElem.textContent = `${formattedPrice(bookingData.totalPrice - discountAmount)}`
+      };
+
+      alert(`Coupon applied successfully! You saved ${formattedPrice(discountAmount)}`);
     } else {
+      bookingData.promotionCode = "";
       alert("Invalid coupon code!");
       if (discountElem) discountElem.textContent = "-$0";
       if (totalElem) totalElem.textContent = `${formattedPrice(bookingData.totalPrice)}`;
@@ -276,8 +289,14 @@ document.addEventListener("DOMContentLoaded", () => {
     container.innerHTML = ""; // clear danh sách cũ
 
     list.forEach((car, index) => {
+      const carDataJson = JSON.stringify({
+        id: car.id,
+        promotionCode: car.promotionCode || "",
+        discountAmount: car.discountAmount || 0,
+        finalPrice: car.finalPrice || 0
+      });
       container.innerHTML += `
-      <label class="car-card-item" data-car-id="${car.id}">
+      <label class="car-card-item" data-car-id="${car.id}" data-car-data='${carDataJson}>
         <input type="radio" name="selectedCar" class="car-checkbox" ${
           index === 0 ? "checked" : ""
         } />
