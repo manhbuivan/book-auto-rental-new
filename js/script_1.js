@@ -298,7 +298,7 @@ document.addEventListener("DOMContentLoaded", () => {
         finalPrice: car.finalPrice || 0
       });
       container.innerHTML += `
-      <label class="car-card-item" data-car-id="${car.id}" data-car-data='${carDataJson}>
+      <label class="car-card-item" data-car-id="${car.id}" data-car-data='${carDataJson}'>
         <input type="radio" name="selectedCar" class="car-checkbox" ${
           index === 0 ? "checked" : ""
         } />
