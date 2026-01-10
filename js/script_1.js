@@ -84,19 +84,33 @@ document.addEventListener("DOMContentLoaded", () => {
   })
 
   // ============== OSRM Distance Calculator ================
-  async function calculateDistanceOSRM(lat1, lng1, lat2, lng2) {
+  async function calculateDistanceGoogle(lat1, lng1, lat2, lng2) {
     try {
-      const url = `https://router.project-osrm.org/route/v1/driving/${lng1},${lat1};${lng2},${lat2}?overview=false`;
-      const res = await fetch(url);
-      const data = await res.json();
+      const service = new google.maps.DistanceMatrixService();
 
-      if (data.code === "Ok" && data.routes && data.routes.length > 0) {
-        const distanceMeters = data.routes[0].distance;
-        return distanceMeters;
-      }
-      return 0;
+      return new Promise((resolve) => {
+        service.getDistanceMatrix(
+          {
+            origins: [{ lat: lat1, lng: lng1 }],
+            destinations: [{ lat: lat2, lng: lng2 }],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.IMPERIAL,
+          },
+          (response, status) => {
+            if (
+              status === "OK" &&
+              response.rows[0].elements[0].status === "OK"
+            ) {
+              const distanceMiles =
+                response.rows[0].elements[0].distance.value / 1609.34;
+              resolve(distanceMiles);
+            } else {
+              resolve(0);
+            }
+          }
+        );
+      });
     } catch (err) {
-      console.error("OSRM Error:", err);
       return 0;
     }
   }
@@ -111,17 +125,17 @@ document.addEventListener("DOMContentLoaded", () => {
     let returnDistance = 0;
 
     // Calculate startPoint (White House) to pickup
-    pickupDistance = await calculateDistanceOSRM(
+    const startToPickup = await calculateDistanceGoogle(
       selectedLocations.startPoint.lat,
       selectedLocations.startPoint.lng,
       selectedLocations.pickup.lat,
       selectedLocations.pickup.lng
     );
 
-    totalDistance += pickupDistance;
+    totalDistance += startToPickup;
 
     // Calculate pickup to first dropoff
-    pickupDistance = await calculateDistanceOSRM(
+    pickupDistance = await calculateDistanceGoogle(
       selectedLocations.pickup.lat,
       selectedLocations.pickup.lng,
       selectedLocations.dropoffs[0].lat,
@@ -132,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Calculate distances between dropoff points
     for (let i = 0; i < selectedLocations.dropoffs.length - 1; i++) {
-      const dist = await calculateDistanceOSRM(
+      const dist = await calculateDistanceGoogle(
         selectedLocations.dropoffs[i].lat,
         selectedLocations.dropoffs[i].lng,
         selectedLocations.dropoffs[i + 1].lat,
@@ -146,7 +160,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (isRoundTrip && selectedLocations.dropoffs.length > 0) {
       const lastDropoff =
         selectedLocations.dropoffs[selectedLocations.dropoffs.length - 1];
-      returnDistance = await calculateDistanceOSRM(
+      returnDistance = await calculateDistanceGoogle(
         lastDropoff.lat,
         lastDropoff.lng,
         selectedLocations.pickup.lat,
@@ -155,13 +169,10 @@ document.addEventListener("DOMContentLoaded", () => {
       totalDistance += returnDistance;
     }
 
-    // Convert meters to miles (1 mile = 1609.34 meters)
-    const metersToMiles = (meters) => meters / 1609.34;
-
     return {
-      distance: metersToMiles(totalDistance),
-      pickupDistance: metersToMiles(pickupDistance),
-      returnDistance: metersToMiles(returnDistance),
+      distance: totalDistance,
+      pickupDistance: totalDistance,
+      returnDistance: totalDistance,
     };
   }
 
@@ -789,24 +800,51 @@ document.addEventListener("DOMContentLoaded", () => {
 
   async function searchUS(keyword) {
     if (!keyword) return [];
-    try {
-      const res = await axios.get(
-        "https://nominatim.openstreetmap.org/search",
+
+    return new Promise((resolve) => {
+      const service = new google.maps.places.AutocompleteService();
+
+      service.getPlacePredictions(
         {
-          params: { q: keyword, format: "json", countrycodes: "us", limit: 5 },
-          headers: { "User-Agent": "AutoRentalLocationSearch/1.0" },
+          input: keyword,
+          componentRestrictions: { country: "us" },
+        },
+        async (predictions, status) => {
+          if (
+            status !== google.maps.places.PlacesServiceStatus.OK ||
+            !predictions
+          ) {
+            resolve([]);
+            return;
+          }
+
+          const geocoder = new google.maps.Geocoder();
+          const results = await Promise.all(
+            predictions.slice(0, 5).map((prediction) => {
+              return new Promise((res) => {
+                geocoder.geocode(
+                  { placeId: prediction.place_id },
+                  (results, status) => {
+                    if (status === "OK" && results[0]) {
+                      res({
+                        address: results[0].formatted_address,
+                        lat: results[0].geometry.location.lat(),
+                        lng: results[0].geometry.location.lng(),
+                      });
+                    } else {
+                      res(null);
+                    }
+                  }
+                );
+              });
+            })
+          );
+
+          resolve(results.filter((r) => r !== null));
         }
       );
-      return res.data.map((i) => ({
-        address: i.display_name,
-        lat: parseFloat(i.lat),
-        lng: parseFloat(i.lon),
-      }));
-    } catch (err) {
-      console.error("Search error:", err);
-      return [];
-        }
-}
+    });
+  }
 
   function attachAutocomplete(input, dropdown, dropoffIndex = null) {
     const handleSearch = debounce(async () => {
