@@ -171,8 +171,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     return {
       distance: totalDistance,
-      pickupDistance: totalDistance,
-      returnDistance: totalDistance,
+      pickupDistance: pickupDistance,
+      returnDistance: returnDistance,
     };
   }
 
