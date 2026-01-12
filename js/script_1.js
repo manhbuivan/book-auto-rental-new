@@ -40,8 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
     return price.toLocaleString("en-US", {
       style: "currency",
       currency: "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
     });
   }
 
