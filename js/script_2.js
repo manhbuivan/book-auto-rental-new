@@ -253,9 +253,8 @@ document.addEventListener("DOMContentLoaded", () => {
       }
 
       const subtotal = parseFloat(carPrice.replace(/[$,]/g, ""));
-      const boosterSeat = 15;
       const insurance = rentsData.selfDriveInsurance ? 20 : 0;
-      const total = subtotal + boosterSeat + insurance;
+      const total = subtotal + insurance;
       rentsData.totalPrice = total;
 
       const totalElem = step3Content.querySelector("#price-total");
